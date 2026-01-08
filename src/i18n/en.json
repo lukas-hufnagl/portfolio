@@ -134,7 +134,7 @@
     "success": "Message sent!",
     "orReachOut": "Or reach out directly",
     "namePlaceholder": "Your name",
-    "emailPlaceholder": "your@email.com",
+    "emailPlaceholder": "your{'@'}email.com",
     "messagePlaceholder": "Your message..."
   },
   "footer": {

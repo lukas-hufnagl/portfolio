@@ -134,7 +134,7 @@
     "success": "Nachricht gesendet!",
     "orReachOut": "Oder kontaktiere mich direkt",
     "namePlaceholder": "Dein Name",
-    "emailPlaceholder": "deine@email.de",
+    "emailPlaceholder": "deine{'@'}email.de",
     "messagePlaceholder": "Deine Nachricht..."
   },
   "footer": {
