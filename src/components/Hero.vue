@@ -1,12 +1,15 @@
 <template>
   <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-black px-4 sm:px-6 lg:px-8">
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute top-1/4 -left-20 w-72 sm:w-96 lg:w-[500px] h-72 sm:h-96 lg:h-[500px] bg-primary/30 rounded-full blur-[100px] animate-pulse" />
-      <div class="absolute bottom-1/4 -right-20 w-64 sm:w-80 lg:w-[400px] h-64 sm:h-80 lg:h-[400px] bg-accent/30 rounded-full blur-[80px] animate-pulse" style="animation-delay: 1s" />
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 sm:w-96 lg:w-[600px] h-80 sm:h-96 lg:h-[600px] bg-emerald/10 rounded-full blur-[120px] animate-pulse" style="animation-delay: 2s" />
+    <!-- Background blurs - hidden on mobile for performance -->
+    <div class="absolute inset-0 overflow-hidden hidden sm:block">
+      <div class="absolute top-1/4 -left-20 w-96 lg:w-[500px] h-96 lg:h-[500px] bg-primary/30 rounded-full blur-[100px] animate-pulse" />
+      <div class="absolute bottom-1/4 -right-20 w-80 lg:w-[400px] h-80 lg:h-[400px] bg-accent/30 rounded-full blur-[80px] animate-pulse" style="animation-delay: 1s" />
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 lg:w-[600px] h-96 lg:h-[600px] bg-emerald/10 rounded-full blur-[120px] animate-pulse" style="animation-delay: 2s" />
     </div>
+    <!-- Simpler gradient for mobile -->
+    <div class="absolute inset-0 sm:hidden bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
 
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 400 400%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')] opacity-[0.03] dark:opacity-[0.05]" />
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 400 400%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')] opacity-[0.03] dark:opacity-[0.05] hidden sm:block" />
 
     <div class="fixed top-4 sm:top-6 right-4 sm:right-6 z-50 flex items-center gap-3">
       <button 

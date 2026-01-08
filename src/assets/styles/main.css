@@ -43,6 +43,25 @@ body {
     min-height: 44px;
     min-width: 44px;
   }
+  
+  /* Disable heavy blur effects on mobile */
+  .blur-\[100px\], .blur-\[80px\], .blur-\[120px\], .blur-\[150px\] {
+    filter: blur(20px) !important;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GPU acceleration hints */
+.will-change-transform {
+  will-change: transform;
 }
 
 /* Swipe hand animation */
