@@ -1,12 +1,12 @@
 <template>
-  <section id="about" class="py-16 sm:py-28 lg:py-32 px-5 sm:px-6 lg:px-8 bg-white dark:bg-black overflow-x-hidden">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-10 sm:mb-16">
+  <section :id="compact ? undefined : 'about'" class="px-5 sm:px-6 lg:px-8 bg-white dark:bg-black overflow-x-hidden" :class="compact ? 'py-0' : 'py-16 sm:py-28 lg:py-32'">
+    <div :class="compact ? 'max-w-none' : 'max-w-6xl mx-auto'">
+      <div class="text-center mb-10 sm:mb-16" :class="{ 'mb-8': compact }">
         <!-- Profile Image -->
-        <div class="mb-6 sm:mb-8" v-motion :initial="{ opacity: 0, scale: 0.8 }" :visibleOnce="{ opacity: 1, scale: 1 }">
+        <div class="mb-6 sm:mb-8" :class="{ 'mb-4': compact }" v-motion :initial="{ opacity: 0, scale: 0.8 }" :visibleOnce="{ opacity: 1, scale: 1 }">
           <div class="relative inline-block">
             <div class="absolute -inset-1 bg-gradient-to-r from-primary via-accent to-emerald rounded-full blur-md opacity-60"></div>
-            <div class="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-full overflow-hidden border-4 border-white dark:border-zinc-900 shadow-2xl bg-gradient-to-br from-primary to-accent">
+            <div class="rounded-full overflow-hidden border-4 border-white dark:border-zinc-900 shadow-2xl bg-gradient-to-br from-primary to-accent" :class="compact ? 'w-24 h-24' : 'relative w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-44'">
               <img 
                 src="/me.jpg" 
                 alt="Lukas Hufnagl" 
@@ -17,7 +17,7 @@
           </div>
         </div>
         
-        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-black dark:text-white" v-motion :initial="{ opacity: 0, y: 30 }" :visibleOnce="{ opacity: 1, y: 0 }">
+        <h2 class="font-bold mb-3 sm:mb-4 text-black dark:text-white" :class="compact ? 'text-2xl' : 'text-2xl sm:text-4xl lg:text-5xl'" v-motion :initial="{ opacity: 0, y: 30 }" :visibleOnce="{ opacity: 1, y: 0 }">
           {{ t('about.title') }}
         </h2>
         <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-400" v-motion :initial="{ opacity: 0, y: 20 }" :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 100 } }">
@@ -148,6 +148,10 @@
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
 
+defineProps<{
+  compact?: boolean
+}>()
+
 const { t } = useI18n()
 
 const activeStat = ref<number | null>(null)
@@ -177,11 +181,11 @@ const toggleSkill = (index: number) => {
   }
 }
 
-const stats = [
-  { value: '3+', label: 'Jahre' },
-  { value: '10+', label: 'Skills' },
-  { value: '∞', label: 'Kaffee' }
-]
+const stats = computed(() => [
+  { value: '3+', label: t('about.stats.years') },
+  { value: '10+', label: t('about.stats.skills') },
+  { value: '∞', label: t('about.stats.coffee') }
+])
 
 const interests = computed(() => [
   t('about.interestItems.gaming'),
