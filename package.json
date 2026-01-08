@@ -1,12 +1,14 @@
 {
-  "name": "portfolio-website",
+  "name": "portfolio",
   "version": "1.0.0",
   "description": "A personal portfolio website to showcase my work and skills.",
   "main": "src/main.ts",
+  "homepage": "https://lukas-hufnagl.github.io/portfolio/",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@types/canvas-confetti": "^1.9.0",
@@ -32,7 +34,6 @@
     "vue",
     "website"
   ],
-  "author": "Your Name",
-  "license": "MIT",
+  "author": "Lukas Hufnagl",
   "type": "commonjs"
 }
