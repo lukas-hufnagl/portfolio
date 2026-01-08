@@ -1,4 +1,5 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export interface Achievement {
   id: string
@@ -8,35 +9,41 @@ export interface Achievement {
   unlocked: boolean
 }
 
-const achievements = ref<Achievement[]>([
-  { id: 'theme_toggle', title: 'Chamäleon', description: 'Theme gewechselt', icon: '🌓', unlocked: false },
-  { id: 'language_switch', title: 'Polyglot', description: 'Sprache gewechselt', icon: '🌍', unlocked: false },
-  { id: 'color_change', title: 'Designer', description: 'Farbe angepasst', icon: '🎨', unlocked: false },
-  { id: 'scroll_bottom', title: 'Explorer', description: 'Ganz nach unten gescrollt', icon: '🧭', unlocked: false },
-  { id: 'contact_submit', title: 'Networker', description: 'Nachricht gesendet', icon: '📬', unlocked: false },
-  { id: 'completionist', title: 'Completionist', description: 'Alle Achievements freigeschaltet', icon: '🏆', unlocked: false },
+interface AchievementBase {
+  id: string
+  icon: string
+  unlocked: boolean
+}
+
+const achievementBases = ref<AchievementBase[]>([
+  { id: 'theme_toggle', icon: '🌓', unlocked: false },
+  { id: 'language_switch', icon: '🌍', unlocked: false },
+  { id: 'color_change', icon: '🎨', unlocked: false },
+  { id: 'scroll_bottom', icon: '🧭', unlocked: false },
+  { id: 'contact_submit', icon: '📬', unlocked: false },
+  { id: 'completionist', icon: '🏆', unlocked: false },
 ])
 
-const notification = ref<Achievement | null>(null)
+const notification = ref<AchievementBase | null>(null)
 const showNotification = ref(false)
 
 const loadAchievements = () => {
   const saved = localStorage.getItem('achievements')
   if (saved) {
     const parsed = JSON.parse(saved) as string[]
-    achievements.value.forEach(a => {
+    achievementBases.value.forEach(a => {
       if (parsed.includes(a.id)) a.unlocked = true
     })
   }
 }
 
 const saveAchievements = () => {
-  const unlocked = achievements.value.filter(a => a.unlocked).map(a => a.id)
+  const unlocked = achievementBases.value.filter(a => a.unlocked).map(a => a.id)
   localStorage.setItem('achievements', JSON.stringify(unlocked))
 }
 
 const unlock = (id: string) => {
-  const achievement = achievements.value.find(a => a.id === id)
+  const achievement = achievementBases.value.find(a => a.id === id)
   if (achievement && !achievement.unlocked) {
     achievement.unlocked = true
     notification.value = achievement
@@ -45,9 +52,9 @@ const unlock = (id: string) => {
     setTimeout(() => { showNotification.value = false }, 3000)
     
     // Check for completionist (all other achievements)
-    const others = achievements.value.filter(a => a.id !== 'completionist')
+    const others = achievementBases.value.filter(a => a.id !== 'completionist')
     if (others.every(a => a.unlocked)) {
-      const completionist = achievements.value.find(a => a.id === 'completionist')
+      const completionist = achievementBases.value.find(a => a.id === 'completionist')
       if (completionist && !completionist.unlocked) {
         setTimeout(() => {
           completionist.unlocked = true
@@ -63,11 +70,32 @@ const unlock = (id: string) => {
 
 loadAchievements()
 
-export const useAchievements = () => ({
-  achievements,
-  notification,
-  showNotification,
-  unlock,
-  unlockedCount: () => achievements.value.filter(a => a.unlocked).length,
-  totalCount: () => achievements.value.length
-})
+export const useAchievements = () => {
+  const { t } = useI18n()
+  
+  const achievements = computed<Achievement[]>(() => 
+    achievementBases.value.map(a => ({
+      ...a,
+      title: t(`achievements.items.${a.id}.title`),
+      description: t(`achievements.items.${a.id}.description`)
+    }))
+  )
+  
+  const notificationWithText = computed(() => {
+    if (!notification.value) return null
+    return {
+      ...notification.value,
+      title: t(`achievements.items.${notification.value.id}.title`),
+      description: t(`achievements.items.${notification.value.id}.description`)
+    }
+  })
+  
+  return {
+    achievements,
+    notification: notificationWithText,
+    showNotification,
+    unlock,
+    unlockedCount: () => achievementBases.value.filter(a => a.unlocked).length,
+    totalCount: () => achievementBases.value.length
+  }
+}

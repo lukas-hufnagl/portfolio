@@ -48,7 +48,7 @@
           <!-- Interests - Interactive Tap to Highlight -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold mb-3 text-black dark:text-white">
-              Interessen
+              {{ t('about.interests') }}
             </h3>
             <!-- Mobile: 2-row grid -->
             <div class="sm:hidden grid grid-cols-3 gap-2">
@@ -146,7 +146,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const { t } = useI18n()
 
@@ -179,18 +179,18 @@ const toggleSkill = (index: number) => {
 
 const stats = [
   { value: '3+', label: 'Jahre' },
-  { value: '∞', label: 'Kaffee' },
-  { value: '10+', label: 'Skills' }
+  { value: '10+', label: 'Skills' },
+  { value: '∞', label: 'Kaffee' }
 ]
 
-const interests = [
-  '🎮 Gaming',
-  '💻 Coding',
-  '🎵 Musik',
-  '🏃 Fitness',
-  '✈️ Reisen',
-  '📚 Lernen'
-]
+const interests = computed(() => [
+  t('about.interestItems.gaming'),
+  t('about.interestItems.coding'),
+  t('about.interestItems.music'),
+  t('about.interestItems.fitness'),
+  t('about.interestItems.travel'),
+  t('about.interestItems.learning')
+])
 
 const skills = [
   { name: 'TypeScript', icon: '📘', category: 'Language' },

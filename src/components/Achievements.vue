@@ -3,10 +3,10 @@
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-8 sm:mb-16">
         <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-black dark:text-white" v-motion :initial="{ opacity: 0, y: 30 }" :visibleOnce="{ opacity: 1, y: 0 }">
-          Achievements
+          {{ t('achievements.title') }}
         </h2>
         <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-400" v-motion :initial="{ opacity: 0, y: 20 }" :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 100 } }">
-          {{ unlockedCount() }} von {{ totalCount() }} freigeschaltet
+          {{ t('achievements.unlockedOf', { unlocked: unlockedCount(), total: totalCount() }) }}
         </p>
       </div>
 
@@ -37,7 +37,7 @@
               class="text-sm"
               :class="achievement.unlocked ? 'text-gray-600 dark:text-gray-400' : 'text-gray-400'"
             >
-              {{ achievement.unlocked ? achievement.description : 'Noch nicht freigeschaltet' }}
+              {{ achievement.unlocked ? achievement.description : t('achievements.notUnlocked') }}
             </p>
           </div>
         </div>
@@ -74,7 +74,7 @@
                 class="text-sm"
                 :class="achievement.unlocked ? 'text-gray-600 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'"
               >
-                {{ achievement.unlocked ? achievement.description : 'Noch nicht freigeschaltet' }}
+                {{ achievement.unlocked ? achievement.description : t('achievements.notUnlocked') }}
               </p>
             </div>
           </div>
@@ -86,7 +86,7 @@
         <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
         </svg>
-        <span class="text-xs">Swipe zum Entdecken</span>
+        <span class="text-xs">{{ t('achievements.swipeHint') }}</span>
         <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
         </svg>
@@ -99,7 +99,7 @@
         :visibleOnce="{ opacity: 1, transition: { delay: 500 } }"
       >
         <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-500">
-          💡 Tipp: Erkunde die Seite um alle Achievements freizuschalten!
+          {{ t('achievements.tip') }}
         </p>
       </div>
     </div>
@@ -107,7 +107,9 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { useAchievements } from '../composables/useAchievements'
 
+const { t } = useI18n()
 const { achievements, unlockedCount, totalCount } = useAchievements()
 </script>

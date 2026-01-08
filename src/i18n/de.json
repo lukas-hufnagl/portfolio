@@ -6,7 +6,10 @@
     "available": "Verfügbar für Projekte",
     "description": "Ich entwickle moderne Web-Applikationen mit Fokus auf Performance, Design und User Experience.",
     "cta": "Projekte ansehen",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "aboutMe": "Mehr über mich",
+    "scroll": "Scroll",
+    "swipe": "Swipe"
   },
   "projects": {
     "title": "Ausgewählte Projekte",
@@ -69,7 +72,56 @@
     "subtitle": "Leidenschaft für Code und Design",
     "description": "Mit über 3 Jahren Erfahrung in der Webentwicklung verbinde ich technische Expertise mit kreativem Design. Ich liebe es, komplexe Probleme in elegante Lösungen zu verwandeln.",
     "skills": "Skills",
-    "downloadCV": "CV herunterladen"
+    "downloadCV": "CV herunterladen",
+    "interests": "Interessen",
+    "stats": {
+      "years": "Jahre",
+      "coffee": "Kaffee",
+      "skills": "Skills"
+    },
+    "interestItems": {
+      "gaming": "🎮 Gaming",
+      "coding": "💻 Coding",
+      "music": "🎵 Musik",
+      "fitness": "🏃 Fitness",
+      "travel": "✈️ Reisen",
+      "learning": "📚 Lernen"
+    },
+    "showMore": "Mehr anzeigen",
+    "showLess": "Weniger anzeigen"
+  },
+  "achievements": {
+    "title": "Achievements",
+    "unlockedOf": "{unlocked} von {total} freigeschaltet",
+    "notUnlocked": "Noch nicht freigeschaltet",
+    "swipeHint": "Swipe zum Entdecken",
+    "tip": "💡 Tipp: Erkunde die Seite um alle Achievements freizuschalten!",
+    "items": {
+      "theme_toggle": {
+        "title": "Chamäleon",
+        "description": "Theme gewechselt"
+      },
+      "language_switch": {
+        "title": "Polyglot",
+        "description": "Sprache gewechselt"
+      },
+      "color_change": {
+        "title": "Designer",
+        "description": "Farbe angepasst"
+      },
+      "scroll_bottom": {
+        "title": "Explorer",
+        "description": "Ganz nach unten gescrollt"
+      },
+      "contact_submit": {
+        "title": "Networker",
+        "description": "Nachricht gesendet"
+      },
+      "completionist": {
+        "title": "Completionist",
+        "description": "Alle Achievements freigeschaltet"
+      }
+    }
   },
   "contact": {
     "title": "Kontakt",

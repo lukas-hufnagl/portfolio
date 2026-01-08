@@ -6,7 +6,10 @@
     "available": "Available for projects",
     "description": "I build modern web applications with a focus on performance, design and user experience.",
     "cta": "View Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "aboutMe": "About me",
+    "scroll": "Scroll",
+    "swipe": "Swipe"
   },
   "projects": {
     "title": "Selected Projects",
@@ -69,7 +72,56 @@
     "subtitle": "Passion for code and design",
     "description": "With over 3 years of experience in web development, I combine technical expertise with creative design. I love turning complex problems into elegant solutions.",
     "skills": "Skills",
-    "downloadCV": "Download CV"
+    "downloadCV": "Download CV",
+    "interests": "Interests",
+    "stats": {
+      "years": "Years",
+      "coffee": "Coffee",
+      "skills": "Skills"
+    },
+    "interestItems": {
+      "gaming": "🎮 Gaming",
+      "coding": "💻 Coding",
+      "music": "🎵 Music",
+      "fitness": "🏃 Fitness",
+      "travel": "✈️ Travel",
+      "learning": "📚 Learning"
+    },
+    "showMore": "Show more",
+    "showLess": "Show less"
+  },
+  "achievements": {
+    "title": "Achievements",
+    "unlockedOf": "{unlocked} of {total} unlocked",
+    "notUnlocked": "Not unlocked yet",
+    "swipeHint": "Swipe to discover",
+    "tip": "💡 Tip: Explore the page to unlock all achievements!",
+    "items": {
+      "theme_toggle": {
+        "title": "Chameleon",
+        "description": "Changed the theme"
+      },
+      "language_switch": {
+        "title": "Polyglot",
+        "description": "Changed the language"
+      },
+      "color_change": {
+        "title": "Designer",
+        "description": "Customized the color"
+      },
+      "scroll_bottom": {
+        "title": "Explorer",
+        "description": "Scrolled to the bottom"
+      },
+      "contact_submit": {
+        "title": "Networker",
+        "description": "Sent a message"
+      },
+      "completionist": {
+        "title": "Completionist",
+        "description": "Unlocked all achievements"
+      }
+    }
   },
   "contact": {
     "title": "Contact",

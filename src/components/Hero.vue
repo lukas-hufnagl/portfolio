@@ -52,7 +52,7 @@
           href="#about" 
           class="group relative px-6 sm:px-8 py-3 sm:py-4 bg-black dark:bg-white text-white dark:text-black rounded-full font-medium overflow-hidden transition-colors duration-300"
         >
-          <span class="relative z-10 group-hover:text-white transition-colors duration-300">Mehr über mich</span>
+          <span class="relative z-10 group-hover:text-white transition-colors duration-300">{{ t('hero.aboutMe') }}</span>
           <div class="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </a>
         <a 
@@ -76,14 +76,14 @@
       :class="isAtTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'"
     >
       <!-- Desktop: Scroll indicator -->
-      <span class="text-xs sm:text-sm hidden sm:block">Scroll</span>
+      <span class="text-xs sm:text-sm hidden sm:block">{{ t('hero.scroll') }}</span>
       <div class="hidden sm:flex w-6 h-10 rounded-full border-2 border-current justify-center pt-2">
         <div class="w-1.5 h-3 bg-current rounded-full animate-scroll" />
       </div>
       
       <!-- Mobile: Swipe indicator with arrow -->
       <div class="sm:hidden flex flex-col items-center gap-2">
-        <span class="text-xs">Swipe</span>
+        <span class="text-xs">{{ t('hero.swipe') }}</span>
         <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
         </svg>
