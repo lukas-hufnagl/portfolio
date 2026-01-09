@@ -35,8 +35,8 @@
 
             <div :class="['sm:w-[calc(50%-2rem)]', index % 2 === 0 ? 'sm:mr-auto sm:pr-8 sm:text-right' : 'sm:ml-auto sm:pl-8']">
               <div 
-                class="p-5 sm:p-6 rounded-2xl sm:rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 hover:border-primary hover:shadow-lg hover:shadow-primary/20 dark:hover:shadow-primary/30 transition-all duration-300 shadow-sm cursor-pointer sm:cursor-default"
-                :class="{ 'border-primary shadow-lg shadow-primary/20': expandedItem === index }"
+                class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 hover:border-primary hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 shadow-sm cursor-pointer sm:cursor-default"
+                :class="{ 'border-primary shadow-lg shadow-primary/25': expandedItem === index }"
                 @click="toggleItem(index)"
               >
                 <span class="inline-block px-3 py-1.5 mb-3 text-xs sm:text-sm font-medium rounded-full bg-primary/10 text-primary">

@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 import confetti from 'canvas-confetti'
 import { useAchievements } from '../composables/useAchievements'
@@ -110,6 +110,4 @@ const handleSubmit = () => {
     form.message = ''
   }, 3000)
 }
-
-onMounted(() => {})
 </script>
