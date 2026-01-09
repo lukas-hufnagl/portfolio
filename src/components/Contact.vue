@@ -124,7 +124,6 @@ const handleSubmit = () => {
     })
     .catch(() => {
       submitted.value = false
-      // Optional: show error message
     })
 }
 </script>
