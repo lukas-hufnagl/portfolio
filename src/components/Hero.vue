@@ -103,13 +103,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useDarkMode } from '../composables/useDarkMode'
 import { useI18n } from 'vue-i18n'
 import { useAchievements } from '../composables/useAchievements'
 import { socials } from './icons'
 
 const { t, locale } = useI18n()
 const { unlock } = useAchievements()
-const isDark = ref(true)
+const { isDark, toggleDark } = useDarkMode()
 const typedText = ref('')
 const isAtTop = ref(true)
 const roles = ['Full-Stack Developer', 'UI/UX Designer', 'Problem Solver', 'Tech Enthusiast']
@@ -149,10 +150,7 @@ const typeWriter = () => {
 }
 
 const toggleTheme = () => {
-  isDark.value = !isDark.value
-  document.documentElement.classList.toggle('dark', isDark.value)
-  document.body.classList.toggle('dark', isDark.value)
-  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+  toggleDark()
   unlock('theme_toggle')
 }
 
@@ -163,10 +161,6 @@ const toggleLocale = () => {
 }
 
 onMounted(() => {
-  const savedTheme = localStorage.getItem('theme')
-  isDark.value = savedTheme !== 'light'
-  document.documentElement.classList.toggle('dark', isDark.value)
-  document.body.classList.toggle('dark', isDark.value)
   typeWriter()
   window.addEventListener('scroll', handleScroll)
 })

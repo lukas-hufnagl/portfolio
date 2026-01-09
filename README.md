@@ -1,11 +1,11 @@
-# Personal Portfolio Website
+# Personal Portfolio
 
 This is a personal portfolio website built with Vue.js. It showcases my projects, skills, and provides a way for visitors to contact me.
 
 ## Project Structure
 
 ```
-portfolio-website
+portfolio
 ├── src
 │   ├── App.vue
 │   ├── main.js
@@ -46,7 +46,7 @@ portfolio-website
 
 2. Navigate to the project directory:
    ```
-   cd portfolio-website
+   cd portfolio
    ```
 
 3. Install the dependencies:

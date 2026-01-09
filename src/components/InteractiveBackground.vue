@@ -29,12 +29,15 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useDarkMode } from '../composables/useDarkMode'
 
-const mouseX = ref(typeof window !== 'undefined' ? window.innerWidth / 2 : 0)
-const mouseY = ref(typeof window !== 'undefined' ? window.innerHeight / 2 : 0)
-const pageHeight = ref(typeof window !== 'undefined' ? document.body.scrollHeight : 0)
-const isDark = ref(true)
+const mouseX = ref(window.innerWidth / 2)
+const mouseY = ref(window.innerHeight / 2)
+const pageHeight = ref(document.body.scrollHeight)
+const { isDark } = useDarkMode()
 const isMobile = ref(false)
+const { t } = useI18n()
 
 interface Particle {
   x: number
@@ -100,11 +103,7 @@ onMounted(() => {
     pageHeight.value = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
   }
   
-  isDark.value = document.documentElement.classList.contains('dark')
-  const observer = new MutationObserver(() => {
-    isDark.value = document.documentElement.classList.contains('dark')
-  })
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+  // isDark is now reactive from useDarkMode
 })
 
 onUnmounted(() => {

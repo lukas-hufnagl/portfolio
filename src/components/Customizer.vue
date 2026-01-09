@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useDarkMode } from '../composables/useDarkMode'
 import { useI18n } from 'vue-i18n'
 import { useAchievements } from '../composables/useAchievements'
 
@@ -40,7 +41,7 @@ const { t } = useI18n()
 const { unlock } = useAchievements()
 
 const showPanel = ref(false)
-const isDark = ref(true)
+const { isDark } = useDarkMode()
 const activeColor = ref('Blue')
 
 interface Color {
@@ -67,8 +68,6 @@ const setAccentColor = (color: Color) => {
 }
 
 onMounted(() => {
-  isDark.value = document.documentElement.classList.contains('dark')
-  
   const savedColor = localStorage.getItem('accentColor')
   if (savedColor) {
     const color = JSON.parse(savedColor)
@@ -76,10 +75,6 @@ onMounted(() => {
     document.documentElement.style.setProperty('--color-primary', color.value)
     document.documentElement.style.setProperty('--color-accent', color.accent)
   }
-
-  const observer = new MutationObserver(() => {
-    isDark.value = document.documentElement.classList.contains('dark')
-  })
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+  // isDark is now reactive from useDarkMode
 })
 </script>
