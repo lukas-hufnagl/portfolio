@@ -1,13 +1,13 @@
 <template>
-  <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-black px-4 sm:px-6 lg:px-8">
+  <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-[#0A0A0F] px-4 sm:px-6 lg:px-8">
     <!-- Background blurs - hidden on mobile for performance -->
     <div class="absolute inset-0 overflow-hidden hidden sm:block">
-      <div class="absolute top-1/4 -left-20 w-96 lg:w-[500px] h-96 lg:h-[500px] bg-primary/30 rounded-full blur-[100px] animate-pulse" />
-      <div class="absolute bottom-1/4 -right-20 w-80 lg:w-[400px] h-80 lg:h-[400px] bg-accent/30 rounded-full blur-[80px] animate-pulse" style="animation-delay: 1s" />
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 lg:w-[600px] h-96 lg:h-[600px] bg-emerald/10 rounded-full blur-[120px] animate-pulse" style="animation-delay: 2s" />
+      <div class="absolute top-1/4 -left-20 w-96 lg:w-[500px] h-96 lg:h-[500px] bg-primary/20 rounded-full blur-[150px]" />
+      <div class="absolute bottom-1/4 -right-20 w-80 lg:w-[400px] h-80 lg:h-[400px] bg-accent/15 rounded-full blur-[120px]" />
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 lg:w-[600px] h-96 lg:h-[600px] bg-emerald/10 rounded-full blur-[180px]" />
     </div>
     <!-- Simpler gradient for mobile -->
-    <div class="absolute inset-0 sm:hidden bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
+    <div class="absolute inset-0 sm:hidden bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
 
     <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 400 400%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')] opacity-[0.03] dark:opacity-[0.05] hidden sm:block" />
 
@@ -34,6 +34,17 @@
     </div>
 
     <div class="relative z-10 text-center w-full max-w-5xl mx-auto pt-16 sm:pt-0">
+      <!-- Status Badge -->
+      <div class="flex justify-center mb-6" v-motion :initial="{ opacity: 0, y: 20 }" :enter="{ opacity: 1, y: 0, transition: { delay: 100 } }">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald/10 border border-emerald/20 text-emerald text-sm font-medium">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald"></span>
+          </span>
+          Available for work
+        </div>
+      </div>
+
       <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-3 sm:mb-4" v-motion :initial="{ opacity: 0, y: 20 }" :enter="{ opacity: 1, y: 0, transition: { delay: 200 } }">
         {{ t('hero.greeting') }}
       </p>

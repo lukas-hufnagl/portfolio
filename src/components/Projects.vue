@@ -1,5 +1,5 @@
 <template>
-  <section id="projects" class="py-20 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-zinc-950">
+  <section id="projects" class="py-20 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-[#0D0D12]">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-12 sm:mb-16 lg:mb-20">
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-black dark:text-white" v-motion :initial="{ opacity: 0, y: 30 }" :visibleOnce="{ opacity: 1, y: 0 }">

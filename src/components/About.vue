@@ -1,16 +1,21 @@
 <template>
-  <section id="about" class="py-16 sm:py-28 lg:py-32 px-5 sm:px-6 lg:px-8 bg-white dark:bg-black overflow-x-hidden">
+  <section id="about" class="py-16 sm:py-28 lg:py-32 px-5 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#0A0A0F] overflow-x-hidden">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-10 sm:mb-16">
         <!-- Profile Image -->
-        <div class="mb-6 sm:mb-8" v-motion :initial="{ opacity: 0, scale: 0.8 }" :visibleOnce="{ opacity: 1, scale: 1 }">
-          <div class="relative inline-block">
-            <div class="absolute -inset-1 bg-gradient-to-r from-primary via-accent to-emerald rounded-full blur-md opacity-60"></div>
-            <div class="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-full overflow-hidden border-4 border-white dark:border-zinc-900 shadow-2xl bg-gradient-to-br from-primary to-accent">
+        <div class="mb-6 sm:mb-8" v-motion :initial="{ opacity: 0, scale: 0.8, rotate: -5 }" :visibleOnce="{ opacity: 1, scale: 1, rotate: 0 }">
+          <div class="relative inline-block group">
+            <!-- Soft ambient glow -->
+            <div class="absolute -inset-4 bg-gradient-to-tr from-primary/20 via-accent/15 to-emerald/20 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <!-- Floating rings -->
+            <div class="absolute -inset-3 border border-primary/20 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-500"></div>
+            <div class="absolute -inset-2 border border-accent/15 rounded-2xl -rotate-3 group-hover:-rotate-6 transition-transform duration-500"></div>
+            <!-- Photo container with rounded corners -->
+            <div class="relative w-36 h-36 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-2xl overflow-hidden border-2 border-white/50 dark:border-zinc-800/50 shadow-xl bg-gradient-to-br from-primary/30 to-accent/30 backdrop-blur-sm">
               <img 
                 src="/me.jpg" 
                 alt="Lukas Hufnagl" 
-                class="w-full h-full object-cover object-top"
+                class="w-full h-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
                 @error="($event.target as HTMLImageElement).style.display = 'none'"
               />
             </div>

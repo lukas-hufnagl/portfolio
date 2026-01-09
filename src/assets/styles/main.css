@@ -3,11 +3,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-primary: #0070F3;
-  --color-accent: #7928CA;
-  --color-emerald: #10B981;
-  --color-rose: #F43F5E;
-  --color-amber: #F59E0B;
+  --color-primary: #6366F1;
+  --color-accent: #A855F7;
+  --color-emerald: #34D399;
+  --color-rose: #FB7185;
+  --color-amber: #FBBF24;
 }
 
 html {
@@ -16,9 +16,14 @@ html {
 }
 
 body {
-  @apply bg-white dark:bg-black text-black dark:text-white antialiased;
+  @apply bg-gray-50 dark:bg-[#0A0A0F] text-gray-900 dark:text-gray-100 antialiased;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+}
+
+/* Softer selection colors */
+::selection {
+  @apply bg-primary/20 text-inherit;
 }
 
 /* Hide scrollbar for horizontal scroll on mobile */
@@ -137,4 +142,36 @@ body {
 .animate-shimmer {
   background-size: 200% auto;
   animation: shimmer 3s linear infinite;
+}
+
+/* Rotating gradient border */
+@keyframes border-spin {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-border-spin {
+  background-size: 300% 300%;
+  animation: border-spin 4s ease infinite;
+}
+
+/* Slow bounce for badge */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
 }

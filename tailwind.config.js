@@ -8,14 +8,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary': '#0070F3',
-        'dark-bg': '#000000',
-        'dark-card': '#111111',
-        'light-bg': '#FFFFFF',
-        'light-card': '#F5F5F5',
-        'accent': '#7928CA',
-        'border-light': '#EAEAEA',
-        'border-dark': '#333333',
+        'primary': '#6366F1',
+        'dark-bg': '#0A0A0F',
+        'dark-card': '#14141A',
+        'light-bg': '#FAFAFA',
+        'light-card': '#F0F0F5',
+        'accent': '#A855F7',
+        'border-light': '#E5E5E5',
+        'border-dark': '#2A2A35',
       },
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
