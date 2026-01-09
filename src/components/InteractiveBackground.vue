@@ -29,7 +29,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useDarkMode } from '../composables/useDarkMode'
 
 const mouseX = ref(window.innerWidth / 2)
@@ -37,7 +36,6 @@ const mouseY = ref(window.innerHeight / 2)
 const pageHeight = ref(document.body.scrollHeight)
 const { isDark } = useDarkMode()
 const isMobile = ref(false)
-const { t } = useI18n()
 
 interface Particle {
   x: number
