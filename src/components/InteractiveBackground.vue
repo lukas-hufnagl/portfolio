@@ -1,6 +1,6 @@
 <template>
   <!-- Only show on desktop - too heavy for mobile -->
-  <div v-if="!isMobile" class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+  <div v-if="!isMobile" class="absolute inset-0 pointer-events-none overflow-hidden z-0" :style="{ height: pageHeight + 'px', minHeight: '100vh' }">
     <div 
       v-for="(particle, i) in particles" 
       :key="i"
@@ -32,6 +32,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const mouseX = ref(typeof window !== 'undefined' ? window.innerWidth / 2 : 0)
 const mouseY = ref(typeof window !== 'undefined' ? window.innerHeight / 2 : 0)
+const pageHeight = ref(typeof window !== 'undefined' ? document.body.scrollHeight : 0)
 const isDark = ref(true)
 const isMobile = ref(false)
 
@@ -61,7 +62,12 @@ const initParticles = () => {
 
 const handleMouseMove = (e: MouseEvent) => {
   mouseX.value = e.clientX
-  mouseY.value = e.clientY
+  mouseY.value = e.clientY + window.scrollY
+}
+
+const handleScroll = () => {
+  // Update pageHeight on scroll in case content changed
+  pageHeight.value = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
 }
 
 let animationFrame: number
@@ -88,7 +94,10 @@ onMounted(() => {
   if (!isMobile.value) {
     initParticles()
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    window.addEventListener('scroll', handleScroll, { passive: true })
     animate(0)
+    // Initial page height
+    pageHeight.value = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
   }
   
   isDark.value = document.documentElement.classList.contains('dark')
@@ -100,6 +109,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('mousemove', handleMouseMove)
+  window.removeEventListener('scroll', handleScroll)
   cancelAnimationFrame(animationFrame)
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <section id="timeline" class="py-16 sm:py-28 lg:py-32 px-5 sm:px-6 lg:px-8 bg-white/50 dark:bg-[#0D0D12]">
+  <section id="timeline" class="py-16 sm:py-28 lg:py-32 px-5 sm:px-6 lg:px-8 bg-white/50 dark:bg-transparent">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-10 sm:mb-16 lg:mb-20">
         <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-black dark:text-white" v-motion :initial="{ opacity: 0, y: 30 }" :visibleOnce="{ opacity: 1, y: 0 }">
