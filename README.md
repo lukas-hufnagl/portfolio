@@ -8,23 +8,22 @@ This is a personal portfolio website built with Vue.js. It showcases my projects
 portfolio
 ├── src
 │   ├── App.vue
-│   ├── main.js
+│   ├── main.ts
 │   ├── components
-│   │   ├── Header.vue
-│   │   ├── Footer.vue
-│   │   ├── Hero.vue
-│   │   ├── About.vue
-│   │   ├── Projects.vue
-│   │   └── Contact.vue
+│   ├── composables
+│   ├── config
+│   ├── i18n
 │   ├── views
-│   │   └── Home.vue
 │   ├── assets
 │   │   └── styles
 │   │       └── main.css
 │   └── router
-│       └── index.js
+│       └── index.ts
 ├── public
-│   └── index.html
+│   ├── CNAME
+│   └── me.jpg
+├── docs
+│   └── (build output)
 ├── package.json
 ├── vite.config.js
 └── README.md
@@ -60,6 +59,16 @@ portfolio
    ```
 
 5. Open your browser and go to `http://localhost:3000` to view the website.
+
+6. Build for production:
+   ```
+   npm run build
+   ```
+
+7. Deploy to GitHub Pages (publishes the docs folder):
+   ```
+   npm run deploy
+   ```
 
 ## License
 
