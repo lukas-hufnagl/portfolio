@@ -99,13 +99,18 @@ const submitted = ref(false)
 const form = reactive({ name: '', email: '', message: '' })
 const contactForm = ref<HTMLFormElement | null>(null)
 
-const SERVICE_ID = 'service_j44kf5i'
-const TEMPLATE_ID = 'template_3vrepia'
-const PUBLIC_KEY = 'h5zRuoreelkZ23fS_'
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+const isEmailJsConfigured = [SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY].every(Boolean)
 
 const handleSubmit = () => {
+  if (!contactForm.value || !isEmailJsConfigured) {
+    console.error('EmailJS environment variables are missing or not configured.')
+    return
+  }
   submitted.value = true
-  if (!contactForm.value) return
   emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, contactForm.value, PUBLIC_KEY)
     .then(() => {
       unlock('contact_submit')
