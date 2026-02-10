@@ -69,8 +69,8 @@
   },
   "about": {
     "title": "Über mich",
-    "subtitle": "Leidenschaft für Code und Design",
-    "description": "Mit über 3 Jahren Erfahrung in der Webentwicklung verbinde ich technische Expertise mit kreativem Design. Ich liebe es, komplexe Probleme in elegante Lösungen zu verwandeln.",
+    "subtitle": "Ein paar Infos über mich",
+    "description": "Ich bin Full-Stack Entwickler mit Erfahrung in Vue.js, .NET und Cloud-Technologien. Aktuell arbeite ich bei ABB.",
     "skills": "Skills",
     "download_cv": "CV herunterladen",
     "interests": "Interessen",
