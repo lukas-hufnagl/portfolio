@@ -17,6 +17,11 @@ export default [
     }
   },
   {
+    // TypeScript already checks for undefined identifiers (and knows the DOM globals).
+    files: ['**/*.ts', '**/*.vue'],
+    rules: { 'no-undef': 'off' }
+  },
+  {
     rules: {
       'vue/multi-word-component-names': 'off',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],

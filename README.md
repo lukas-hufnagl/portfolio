@@ -1,74 +1,46 @@
 # Personal Portfolio
 
-This is a personal portfolio website built with Vue.js. It showcases my projects, skills, and provides a way for visitors to contact me.
+Personal site of Lukas Hufnagl, built with Vue 3 (`<script setup lang="ts">` throughout), Vue Router, Vite and Tailwind CSS 4 (via `@tailwindcss/vite`). Components style themselves with scoped CSS on top of the design tokens in `main.css`.
 
-## Project Structure
+## Structure
 
 ```
-portfolio
-├── src
-│   ├── App.vue
-│   ├── main.ts
-│   ├── components
-│   ├── composables
-│   ├── config
-│   ├── i18n
-│   ├── views
-│   ├── assets
-│   │   └── styles
-│   │       └── main.css
-│   └── router
-│       └── index.ts
-├── public
-│   ├── CNAME
-│   └── me.jpg
-├── docs
-│   └── (build output)
-├── package.json
-├── vite.config.js
-└── README.md
+src
+├── content/        # site.ts: all copy and data · pages.ts: routes, titles, descriptions
+├── lib/            # small pure helpers, unit tested (career.ts, projects.ts, text.ts)
+├── router/         # routes built from pages.ts, per-page <title>/meta (meta.ts)
+├── views/          # HomeView (one screen), AboutView, CareerView, WorkView, ProjectView
+├── components/     # header + wordmark, footer, theme toggle, portrait, link/contact rows
+├── composables/    # useDarkMode
+└── assets/styles/  # main.css: design tokens and shared layout (.column, .rows, .row)
+public/             # CNAME, favicon, touch icon, robots.txt, optimised portrait images
+docs/               # build output (npm run build) — the folder GitHub Pages publishes
 ```
 
-## Features
+## Pages
 
-- **Responsive Design**: The website is designed to be responsive and works well on various devices.
-- **Dynamic Routing**: Utilizes Vue Router for navigating between different sections of the portfolio.
-- **Component-Based Architecture**: Built using Vue.js components for better maintainability and reusability.
-- **Contact Form**: Includes a contact form for visitors to reach out.
+- `/` — one screen: name, one sentence, a line each for About, Career and Work, and contact.
+- `/about`, `/career`, `/work` — lazy-loaded subpages.
+- `/work/<slug>` — one page per project in `projects` (`src/content/site.ts`).
 
-## Setup Instructions
+GitHub Pages serves files, not routes, so the build (see `vite.config.js`) writes a static
+`index.html` for every page and project — each with its own title, description and canonical
+URL — plus `404.html` and `sitemap.xml`.
 
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   ```
+To add a project: add an entry to `projects` in `src/content/site.ts`. Its page, the static
+HTML and the sitemap entry follow automatically.
 
-2. Navigate to the project directory:
-   ```
-   cd portfolio
-   ```
+## Scripts
 
-3. Install the dependencies:
-   ```
-   npm install
-   ```
-
-4. Run the development server:
-   ```
-   npm run dev
-   ```
-
-5. Open your browser and go to `http://localhost:3000` to view the website.
-
-6. Build for production:
-   ```
-   npm run build
-   ```
-
-7. Deploy to GitHub Pages (publishes the docs folder):
-   ```
-   npm run deploy
-   ```
+```
+npm install
+npm run dev      # http://localhost:3000
+npm test         # unit tests (Vitest)
+npm run lint     # ESLint
+npm run typecheck # vue-tsc for the app, tsc for vite.config.ts
+npm run build    # typecheck + build into docs/
+npm run deploy   # publish docs/ to GitHub Pages
+```
 
 ## License
 
