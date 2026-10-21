@@ -35,17 +35,17 @@ const interests = formatSentenceList(person.interests)
 
 <style scoped>
 /*
- * Phones and tablets: a profile header — title and sentence, the photo small beside them —
- * then the rows across the full width.
+ * Phones and tablets: the photo small on top, like an avatar, then title, sentence and rows,
+ * each at full width.
  * Desktop: title and rows on the left, the photo large in its own column on the right.
  */
 .about {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(5.5rem, 26vw, 9rem);
+  grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
-    'intro photo'
-    'rows  rows';
-  column-gap: 1.25rem;
+    'photo'
+    'intro'
+    'rows';
   row-gap: 2rem;
   align-items: start;
 }
@@ -55,8 +55,9 @@ const interests = formatSentenceList(person.interests)
 }
 .about__portrait {
   grid-area: photo;
-  /* Level with the top of the title's capitals. */
-  margin-top: 0.35rem;
+  width: 5.5rem;
+  /* Closer to the title it introduces than to the rows. */
+  margin-bottom: -0.75rem;
 }
 .about__rows {
   grid-area: rows;
@@ -73,7 +74,8 @@ const interests = formatSentenceList(person.interests)
     row-gap: clamp(2rem, 6vh, 3rem);
   }
   .about__portrait {
-    margin-top: 0.4rem;
+    width: 100%;
+    margin-block: 0.4rem 0;
   }
 }
 </style>

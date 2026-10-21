@@ -4,7 +4,7 @@
 
     <PageIntro :title="project.title">{{ project.summary }}</PageIntro>
 
-    <dl class="rows">
+    <dl class="rows rows--stack">
       <div class="row">
         <dt class="mono row__label">Year</dt>
         <dd class="row__body">{{ project.year }}</dd>

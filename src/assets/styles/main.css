@@ -161,22 +161,24 @@ a {
   align-items: baseline;
 }
 
-/* Phones: the label sits above its content, so the content gets the full width. */
+/*
+ * Phones: lists with longer content (.rows--stack) put the label above it, so the content
+ * gets the full width. Lists of short values keep the label beside them — more compact.
+ */
 @media (max-width: 639px) {
-  .row {
+  .rows--stack .row {
     grid-template-columns: 1fr;
     row-gap: 0.25rem;
-    padding-block: 0.75rem;
   }
-  .row--link {
+  .rows--stack .row--link {
     grid-template-columns: 1fr auto;
   }
-  .row__label,
-  .row__body {
+  .rows--stack .row__label,
+  .rows--stack .row__body {
     grid-column: 1;
     padding-top: 0;
   }
-  .row--link > :last-child {
+  .rows--stack .row--link > :last-child {
     grid-column: 2;
     grid-row: 1 / span 2;
     align-self: center;

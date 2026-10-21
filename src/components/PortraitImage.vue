@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 const SRCSET = [320, 640, 960].map(w => `/img/portrait-${w}.webp ${w}w`).join(', ')
-const SIZES = '(min-width: 1024px) 26rem, 9rem'
+const SIZES = '(min-width: 1024px) 26rem, 5.5rem'
 </script>
 
 <style scoped>

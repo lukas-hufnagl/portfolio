@@ -76,7 +76,7 @@ defineProps<{ open: boolean }>()
 }
 
 /* Narrow phones keep the short form, so the navigation always fits. */
-@media (max-width: 419px) {
+@media (max-width: 359px) {
   .is-open .mark__fold {
     grid-template-columns: 0fr;
   }

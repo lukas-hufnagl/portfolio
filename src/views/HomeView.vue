@@ -12,7 +12,7 @@
 
     <!-- One line per page, in navigation order, then contact. -->
     <nav class="overview" aria-label="Overview">
-      <ul class="rows">
+      <ul class="rows rows--stack">
         <LinkRow to="/about" label="About">
           <span class="row__line">
             <span>Based in {{ person.location }}</span>
@@ -69,7 +69,7 @@ const latest = latestProjects(projects, 3)
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-block: clamp(1.25rem, 4vh, 4rem);
+  padding-block: clamp(1rem, 3.5vh, 4rem);
 }
 
 /* ------------------------------------------------ intro */
@@ -82,8 +82,8 @@ const latest = latestProjects(projects, 3)
   /* Room for ascenders and descenders inside the clipping box. */
   padding-block: 0.1em 0.14em;
   margin-block: -0.1em -0.14em;
-  /* "Lukas Hufnagl" sets about 6.1em wide: on phones and tablets it runs edge to edge. */
-  font-size: min(16.2cqi, 6rem);
+  /* "Lukas Hufnagl" sets about 6.1em wide: on phones it fills ~85% of the width, with air. */
+  font-size: min(14cqi, 6rem);
   font-weight: 600;
   line-height: 0.95;
   letter-spacing: -0.055em;
@@ -97,7 +97,7 @@ const latest = latestProjects(projects, 3)
 }
 
 .intro__statement {
-  margin-top: 1.25rem;
+  margin-top: clamp(1rem, 2.5vh, 1.25rem);
   font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
   font-weight: 450;
   line-height: 1.35;
@@ -110,8 +110,14 @@ const latest = latestProjects(projects, 3)
 
 /* ------------------------------------------------ overview */
 .overview {
-  margin-top: clamp(1.75rem, 5vh, 3.5rem);
+  margin-top: clamp(1.5rem, 5vh, 3.5rem);
   animation: fade 0.9s var(--ease) 0.32s both;
+}
+/* Phones: one line of content per row; the details live on the pages themselves. */
+@media (max-width: 639px) {
+  .overview .row__aside {
+    display: none;
+  }
 }
 
 /*
