@@ -39,8 +39,12 @@ npm test         # unit tests (Vitest)
 npm run lint     # ESLint
 npm run typecheck # vue-tsc for the app, tsc for vite.config.ts
 npm run build    # typecheck + build into docs/
-npm run deploy   # publish docs/ to GitHub Pages
 ```
+
+## Deploy
+
+GitHub Pages publishes the `docs/` folder of `main`. To deploy: `npm run build`, commit the
+changes (including `docs/`) and push `main`. The live site updates about a minute later.
 
 ## License
 
