@@ -1,12 +1,16 @@
 <template>
   <button
     type="button"
-    class="toggle mono"
+    class="mono inline-flex cursor-pointer items-center gap-2 py-2 text-ink-2 transition-colors duration-200 hover:text-ink"
     :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'"
     @click="toggleDark"
   >
-    <span class="toggle__dial" aria-hidden="true" />
-    <span class="toggle__label" aria-hidden="true">{{ isDark ? 'Dark' : 'Light' }}</span>
+    <!-- A half-filled dial that turns when the theme flips. -->
+    <span
+      class="size-[0.6875rem] rounded-full border border-current bg-[linear-gradient(90deg,currentColor_50%,transparent_50%)] transition-transform duration-600 ease-soft dark:rotate-180"
+      aria-hidden="true"
+    />
+    <span class="max-sm:hidden" aria-hidden="true">{{ isDark ? 'Dark' : 'Light' }}</span>
   </button>
 </template>
 
@@ -15,31 +19,3 @@ import { useDarkMode } from '../composables/useDarkMode'
 
 const { isDark, toggleDark } = useDarkMode()
 </script>
-
-<style scoped>
-.toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0;
-  color: var(--ink-2);
-  cursor: pointer;
-  transition: color 0.2s;
-}
-.toggle:hover {
-  color: var(--ink);
-}
-
-/* A half-filled dial that turns when the theme flips. */
-.toggle__dial {
-  width: 0.6875rem;
-  height: 0.6875rem;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
-  transition: transform 0.6s var(--ease);
-}
-:where(.dark) .toggle__dial {
-  transform: rotate(180deg);
-}
-</style>

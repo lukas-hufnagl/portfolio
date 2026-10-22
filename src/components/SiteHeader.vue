@@ -1,24 +1,30 @@
 <template>
-  <header class="header" :class="{ 'is-scrolled': scrolled }">
-    <div class="column header__inner">
-      <RouterLink to="/" class="header__home" :aria-label="`${person.name}, home`">
+  <header
+    class="sticky top-0 z-20 h-(--header) bg-paper transition-[box-shadow,background-color] duration-300"
+    :class="scrolled ? 'shadow-[0_1px_0_var(--line)]' : 'shadow-[0_1px_0_transparent]'"
+  >
+    <div class="frame flex h-full items-center gap-5 text-[0.8125rem]">
+      <RouterLink to="/" class="inline-flex items-center" :aria-label="`${person.name}, home`">
         <!-- The home page already sets the name large, so there the mark stays short. -->
         <WordMark :open="!isHome" />
       </RouterLink>
 
-      <nav class="header__nav" aria-label="Main">
+      <nav class="ml-auto flex gap-[clamp(1rem,3vw,1.75rem)]" aria-label="Main">
+        <!-- Current page: a short signal-coloured rule under the label. -->
         <RouterLink
           v-for="page in nav"
           :key="page.path"
           :to="page.path"
-          class="header__link"
-          :class="{ 'is-current': isCurrent(page.path) }"
+          class="relative transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-[0.35rem] after:h-px after:origin-left after:bg-signal after:transition-transform after:duration-350 after:ease-soft hover:text-ink"
+          :class="
+            isCurrent(page.path) ? 'text-ink after:scale-x-100' : 'text-ink-2 after:scale-x-0'
+          "
         >
           {{ page.nav }}
         </RouterLink>
       </nav>
 
-      <ThemeToggle class="header__theme" />
+      <ThemeToggle class="ml-[clamp(0.25rem,2vw,1.25rem)]" />
     </div>
   </header>
 </template>
@@ -45,75 +51,3 @@ onMounted(() => {
 })
 onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
 </script>
-
-<style scoped>
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  height: var(--header);
-  background: var(--bg);
-  box-shadow: 0 1px 0 transparent;
-  transition:
-    box-shadow 0.3s,
-    background-color 0.4s var(--ease-io);
-}
-.header.is-scrolled {
-  box-shadow: 0 1px 0 var(--line);
-}
-
-.header__inner {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  font-size: 0.8125rem;
-}
-
-.header__home {
-  display: inline-flex;
-  align-items: center;
-}
-
-.header__nav {
-  display: flex;
-  gap: clamp(1rem, 3vw, 1.75rem);
-  margin-left: auto;
-}
-
-.header__link {
-  position: relative;
-  color: var(--ink-2);
-  transition: color 0.2s;
-}
-.header__link:hover,
-.header__link.is-current {
-  color: var(--ink);
-}
-/* Current page: a short signal-coloured rule under the label. */
-.header__link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.35rem;
-  height: 1px;
-  background: var(--signal);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.35s var(--ease);
-}
-.header__link.is-current::after {
-  transform: scaleX(1);
-}
-
-.header__theme {
-  margin-left: clamp(0.25rem, 2vw, 1.25rem);
-}
-
-@media (max-width: 639px) {
-  .header__theme :deep(.toggle__label) {
-    display: none;
-  }
-}
-</style>

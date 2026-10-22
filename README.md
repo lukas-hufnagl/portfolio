@@ -1,6 +1,6 @@
 # Personal Portfolio
 
-Personal site of Lukas Hufnagl, built with Vue 3 (`<script setup lang="ts">` throughout), Vue Router, Vite and Tailwind CSS 4 (via `@tailwindcss/vite`). Components style themselves with scoped CSS on top of the design tokens in `main.css`.
+Personal site of Lukas Hufnagl, built with Vue 3 (`<script setup lang="ts">` throughout), Vue Router, Vite and Tailwind CSS 4 (via `@tailwindcss/vite`). Components are styled with Tailwind utility classes; colours, fonts and easings are Tailwind theme tokens, and the few repeated patterns are custom utilities — all in `main.css`.
 
 ## Structure
 
@@ -12,18 +12,18 @@ src
 ├── views/          # HomeView (one screen), AboutView, CareerView, WorkView, ProjectView
 ├── components/     # header + wordmark, footer, theme toggle, portrait, link/contact rows
 ├── composables/    # useDarkMode
-└── assets/styles/  # main.css: design tokens and shared layout (.column, .rows, .row)
+└── assets/styles/  # main.css: Tailwind theme tokens and custom utilities (frame, rows, row, mono, …)
 public/             # CNAME, favicon, touch icon, robots.txt, optimised portrait images
 docs/               # build output (npm run build) — the folder GitHub Pages publishes
 ```
 
 ## Pages
 
-- `/` — one screen: name, one sentence, a line each for About, Career and Work, and contact.
-- `/about`, `/career`, `/work` — lazy-loaded subpages.
+- `/` — one screen: name, current role and location, one sentence, and contact.
+- `/about`, `/career`, `/work` — subpages (bundled with the home page, so switching is instant).
 - `/work/<slug>` — one page per project in `projects` (`src/content/site.ts`).
 
-GitHub Pages serves files, not routes, so the build (see `vite.config.js`) writes a static
+GitHub Pages serves files, not routes, so the build (see `vite.config.ts`) writes a static
 `index.html` for every page and project — each with its own title, description and canonical
 URL — plus `404.html` and `sitemap.xml`.
 

@@ -3,6 +3,10 @@ import { pages, projectPage, type Page } from '../content/pages'
 import { projects } from '../content/site'
 import { findProject } from '../lib/projects'
 import HomeView from '../views/HomeView.vue'
+import AboutView from '../views/AboutView.vue'
+import CareerView from '../views/CareerView.vue'
+import WorkView from '../views/WorkView.vue'
+import ProjectView from '../views/ProjectView.vue'
 import { applyPageMeta } from './meta'
 
 declare module 'vue-router' {
@@ -12,12 +16,13 @@ declare module 'vue-router' {
   }
 }
 
-// The home view ships in the main bundle; the subpages load on demand.
+// All views ship in the main bundle: together they are a few KB, and loading them up front
+// means a page switch never waits on the network.
 const views: Record<Exclude<Page['name'], 'project'>, RouteRecordRaw['component']> = {
   home: HomeView,
-  about: () => import('../views/AboutView.vue'),
-  career: () => import('../views/CareerView.vue'),
-  work: () => import('../views/WorkView.vue')
+  about: AboutView,
+  career: CareerView,
+  work: WorkView
 }
 
 export const routes: RouteRecordRaw[] = [
@@ -32,7 +37,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/work/:slug',
     name: 'project',
-    component: () => import('../views/ProjectView.vue'),
+    component: ProjectView,
     // An unknown project falls back to the list rather than an empty page.
     beforeEnter: to => (findProject(projects, to.params.slug) ? true : '/work'),
     meta: { title: '', description: '' }

@@ -12,8 +12,6 @@ export interface Project {
   summary: string
   year: string
   stack: string[]
-  /** What the project does or how it is built — facts only. */
-  highlights: string[]
   links: { label: string; href: string }[]
 }
 
@@ -34,8 +32,6 @@ export interface SkillGroup {
 export const person = {
   name: 'Lukas Hufnagl',
   location: 'Austria',
-  /** The short version of the stack, shown next to the location on the home page. */
-  keySkills: ['Vue.js', 'TypeScript', '.NET'],
   /** Lower case: shown as one sentence, e.g. "Fitness, music and cutting videos". */
   interests: ['fitness', 'music', 'cutting videos'],
   email: 'lukas.hufnagl02@gmail.com'
@@ -50,15 +46,9 @@ export const projects: Project[] = [
   {
     slug: 'portfolio',
     title: 'lukashufnagl.com',
-    summary: 'This site. Designed and built from scratch.',
+    summary: 'This site.',
     year: '2025',
     stack: ['Vue 3', 'TypeScript', 'Vite', 'Tailwind CSS'],
-    highlights: [
-      'One-screen home page, with About, Career and Work as their own pages',
-      'Static HTML for every page, so direct links work on GitHub Pages',
-      'Light and dark theme that follows the system',
-      'Content kept in one typed file; helpers covered by unit tests'
-    ],
     links: [{ label: 'Source', href: 'https://github.com/lukas-hufnagl/portfolio' }]
   }
 ]

@@ -4,189 +4,143 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---------------------------------------------------------------
-   Tokens
-   Paper and ink. One signal colour, used in small doses.
+   Colour values. Paper and ink, one signal colour used in small doses.
+   They live on :root / .dark so the theme can switch at runtime;
+   @theme below exposes them as Tailwind colours (bg-paper, text-ink-2, …).
    --------------------------------------------------------------- */
 :root {
-  --bg: #f2f1ed;
-  --bg-raised: #e8e7e2;
+  --paper: #f2f1ed;
+  --paper-raised: #e8e7e2;
   --ink: #0d0d0c;
   --ink-2: #4f4e4a;
   --ink-3: #8a8983;
   --line: rgb(13 13 12 / 0.12);
   --line-strong: rgb(13 13 12 / 0.3);
   --signal: #ff3d1f;
-
-  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
-
-  --margin: clamp(1rem, 3.6vw, 2.5rem);
-  --header: 3.5rem;
-  /* Page frame: narrow on phones and tablets, wide on desktop. Running text keeps --measure. */
-  --frame: 40rem;
-  --measure: 36rem;
-  --label: 4.75rem;
-  /* Used sparingly: photos only. Everything else stays square to the hairlines. */
-  --radius: 0.625rem;
-
-  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
-  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
-
   color-scheme: light;
 }
-
 .dark {
-  --bg: #0d0d0c;
-  --bg-raised: #171716;
+  --paper: #0d0d0c;
+  --paper-raised: #171716;
   --ink: #f2f1ed;
   --ink-2: #a9a8a2;
   --ink-3: #6b6a65;
   --line: rgb(242 241 237 / 0.1);
   --line-strong: rgb(242 241 237 / 0.26);
-
   color-scheme: dark;
 }
 
-/* ---------------------------------------------------------------
-   Base
-   --------------------------------------------------------------- */
-html {
-  background: var(--bg);
-  -webkit-text-size-adjust: 100%;
+/* Layout measures that change with the screen; used as e.g. px-(--margin). */
+:root {
+  --margin: clamp(1rem, 3.6vw, 2.5rem);
+  --header: 3rem;
+  /* Page frame: narrow on phones and tablets, wide on desktop. Running text keeps --measure. */
+  --frame: 40rem;
+  --measure: 36rem;
+  /* Width of the label column in every list. */
+  --label: 4.75rem;
 }
-
-body {
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  background: var(--bg);
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  overflow-x: hidden;
-  transition:
-    background-color 0.4s var(--ease-io),
-    color 0.4s var(--ease-io);
-}
-
-::selection {
-  background: var(--signal);
-  color: #fff;
-}
-
-:focus-visible {
-  outline: 1px solid var(--ink);
-  outline-offset: 4px;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* ---------------------------------------------------------------
-   Layout primitives
-   --------------------------------------------------------------- */
-@media (min-width: 640px) {
+@media (width >= 40rem) {
   :root {
+    --header: 3.5rem;
     --label: 7rem;
   }
 }
-@media (min-width: 1024px) {
+@media (width >= 64rem) {
   :root {
     --frame: 72rem;
     --label: 12rem;
   }
 }
 
-/* Every page is one centred frame; header, content and footer all share it. */
-.column {
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-signal: var(--signal);
+}
+
+@theme {
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Used sparingly: photos only. Everything else stays square to the hairlines. */
+  --radius-photo: 0.625rem;
+}
+
+/* ---------------------------------------------------------------
+   Base
+   --------------------------------------------------------------- */
+@layer base {
+  html {
+    background: var(--paper);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    transition:
+      background-color 0.4s var(--ease-io),
+      color 0.4s var(--ease-io);
+  }
+  ::selection {
+    background: var(--signal);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 1px solid var(--ink);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------
+   Project utilities: the few patterns every page repeats.
+   --------------------------------------------------------------- */
+
+/* The centred page frame shared by header, content and footer. */
+@utility frame {
   width: 100%;
   max-width: var(--frame);
   margin-inline: auto;
   padding-inline: var(--margin);
 }
 
-/* Subpages: top-aligned, with room before the footer. */
-.view {
-  padding-block: clamp(3rem, 10vh, 5.5rem) clamp(3rem, 8vh, 5rem);
-}
-
-/* Label / content rows divided by hairlines (overview, work, career, skills). */
-.rows {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0.9375rem;
-}
-.row {
-  display: grid;
-  grid-template-columns: var(--label) 1fr;
-  gap: 1rem;
-  padding: 0.875rem 0;
-  border-top: 1px solid var(--line);
-}
-/* The list closes with a hairline, whether its items are rows or wrap one (link rows). */
-.rows > :last-child {
-  border-bottom: 1px solid var(--line);
-}
-.row__label {
-  padding-top: 0.3em;
-  color: var(--ink-3);
-}
-.row__body {
-  margin: 0;
-  max-width: var(--measure);
-}
-/* Each line is a set of parts that wrap between, never inside, each other. */
-.row__body > p,
-.row__line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  column-gap: 0.6em;
-}
-.row__body > p + p {
-  margin-top: 0.25rem;
-}
-.row__aside {
-  color: var(--ink-3);
-  white-space: nowrap;
-}
-
-/* A row that opens another page: label, content, and an arrow at the end. */
-.row--link {
-  grid-template-columns: var(--label) 1fr auto;
-  align-items: baseline;
-}
-
-/*
- * Phones: lists with longer content (.rows--stack) put the label above it, so the content
- * gets the full width. Lists of short values keep the label beside them — more compact.
- */
-@media (max-width: 639px) {
-  .rows--stack .row {
-    grid-template-columns: 1fr;
-    row-gap: 0.25rem;
-  }
-  .rows--stack .row--link {
-    grid-template-columns: 1fr auto;
-  }
-  .rows--stack .row__label,
-  .rows--stack .row__body {
-    grid-column: 1;
-    padding-top: 0;
-  }
-  .rows--stack .row--link > :last-child {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: center;
+/* Subpage padding. On phones tighter, and shrinking with the visible height (svh),
+   so each page fits one screen. */
+@utility page-pad {
+  padding-block: clamp(1rem, 4svh, 2.5rem) clamp(0.75rem, 2svh, 1.5rem);
+  @media (width >= 40rem) {
+    padding-block: clamp(3rem, 10vh, 5.5rem) clamp(3rem, 8vh, 5rem);
   }
 }
 
 /* Small technical labels: indices, captions, metadata. */
-.mono {
+@utility mono {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   line-height: 1.4;
@@ -195,41 +149,49 @@ a {
   text-transform: uppercase;
 }
 
-.muted {
-  color: var(--ink-3);
+/* A list of label / content rows divided by hairlines; it closes with one too. */
+@utility rows {
+  font-size: 0.9375rem;
+  & > :last-child {
+    border-bottom: 1px solid var(--line);
+  }
 }
-
+@utility row {
+  display: grid;
+  grid-template-columns: var(--label) 1fr;
+  gap: 1rem;
+  padding-block: 0.875rem;
+  border-top: 1px solid var(--line);
+}
+/* A row that opens another page: label, content, and an arrow at the end. */
+@utility row-link {
+  grid-template-columns: var(--label) 1fr auto;
+  align-items: baseline;
+}
 /* Text link with a hairline that draws in from the left. */
-.link {
+@utility link-line {
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1px;
   background-position: 0 100%;
   background-repeat: no-repeat;
   transition:
-    background-size 0.45s var(--ease),
+    background-size 0.45s var(--ease-soft),
     color 0.2s;
-}
-.link:hover,
-.link:focus-visible {
-  background-size: 100% 1px;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    transition-delay: 0ms !important;
+/* The one point of colour: a small signal square marking where things stand now. */
+@utility now-mark {
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 0.3125rem;
+    height: 0.3125rem;
+    margin-left: 0.4rem;
+    vertical-align: 0.1em;
+    background: var(--signal);
   }
 }

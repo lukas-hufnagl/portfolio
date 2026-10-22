@@ -1,24 +1,28 @@
+<!--
+  Phones and tablets: the photo floats beside title and sentence, which wrap around it and
+  use the full width again below it; then the rows.
+  Desktop: title and rows on the left, the photo large in its own column on the right.
+-->
 <template>
-  <article class="view column about">
-    <PageIntro title="About" class="about__intro">
-      I’m Lukas, a full-stack developer building web applications with Vue, TypeScript and .NET.
-    </PageIntro>
+  <article
+    class="frame page-pad lg:grid lg:grid-cols-[minmax(0,1fr)_26rem] lg:grid-rows-[auto_1fr] lg:items-start lg:gap-x-[clamp(2rem,5vw,5rem)] lg:[grid-template-areas:'intro_photo'_'rows_photo']"
+  >
+    <!-- First in the markup so that, on phones, title and sentence can flow around it. -->
+    <PortraitImage
+      class="float-right mt-[0.35rem] mb-3 ml-5 w-[clamp(4.5rem,22vw,6.5rem)] lg:float-none lg:m-0 lg:mt-[0.4rem] lg:w-full lg:[grid-area:photo]"
+    />
 
-    <PortraitImage class="about__portrait" />
+    <div class="lg:[grid-area:intro]">
+      <PageIntro title="About">
+        I’m Lukas, a full-stack developer building web applications with Vue, TypeScript and .NET.
+      </PageIntro>
+    </div>
 
     <!-- Career lives on its own page; here: where I am, what I work with, what else I do. -->
-    <dl class="rows about__rows">
-      <div class="row">
-        <dt class="mono row__label">Based in</dt>
-        <dd class="row__body">{{ person.location }}</dd>
-      </div>
-      <div v-for="group in skills" :key="group.area" class="row">
-        <dt class="mono row__label">{{ group.area }}</dt>
-        <dd class="row__body">{{ group.items.join(', ') }}</dd>
-      </div>
-      <div class="row">
-        <dt class="mono row__label">Interests</dt>
-        <dd class="row__body">{{ interests }}</dd>
+    <dl class="rows clear-both lg:[grid-area:rows]">
+      <div v-for="row in rows" :key="row.label" class="row">
+        <dt class="mono pt-[0.3em] text-ink-3">{{ row.label }}</dt>
+        <dd class="max-w-(--measure)">{{ row.value }}</dd>
       </div>
     </dl>
   </article>
@@ -30,52 +34,9 @@ import PageIntro from '../components/PageIntro.vue'
 import PortraitImage from '../components/PortraitImage.vue'
 import { formatSentenceList } from '../lib/text'
 
-const interests = formatSentenceList(person.interests)
+const rows = [
+  { label: 'Based in', value: person.location },
+  ...skills.map(group => ({ label: group.area, value: group.items.join(', ') })),
+  { label: 'Interests', value: formatSentenceList(person.interests) }
+]
 </script>
-
-<style scoped>
-/*
- * Phones and tablets: the photo small on top, like an avatar, then title, sentence and rows,
- * each at full width.
- * Desktop: title and rows on the left, the photo large in its own column on the right.
- */
-.about {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas:
-    'photo'
-    'intro'
-    'rows';
-  row-gap: 2rem;
-  align-items: start;
-}
-.about .about__intro {
-  grid-area: intro;
-  margin-bottom: 0;
-}
-.about__portrait {
-  grid-area: photo;
-  width: 5.5rem;
-  /* Closer to the title it introduces than to the rows. */
-  margin-bottom: -0.75rem;
-}
-.about__rows {
-  grid-area: rows;
-}
-
-@media (min-width: 1024px) {
-  .about {
-    grid-template-columns: minmax(0, 1fr) 26rem;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      'intro photo'
-      'rows  photo';
-    column-gap: clamp(2rem, 5vw, 5rem);
-    row-gap: clamp(2rem, 6vh, 3rem);
-  }
-  .about__portrait {
-    width: 100%;
-    margin-block: 0.4rem 0;
-  }
-}
-</style>

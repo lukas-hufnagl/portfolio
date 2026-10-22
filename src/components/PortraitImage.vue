@@ -1,10 +1,12 @@
+<!-- Always in its own near-square proportions: sized by width, never cropped. -->
 <template>
-  <!-- Always in its own near-square proportions: sized by width, never cropped. -->
-  <figure class="portrait">
+  <figure
+    class="relative max-w-[26rem] overflow-hidden rounded-photo bg-paper-raised after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:border after:border-line"
+  >
     <picture>
       <source type="image/webp" :srcset="SRCSET" :sizes="SIZES" />
       <img
-        class="portrait__img"
+        class="block h-auto w-full"
         src="/img/og.jpg"
         alt="Lukas Hufnagl, smiling, on a forest trail"
         width="1000"
@@ -18,31 +20,5 @@
 
 <script setup lang="ts">
 const SRCSET = [320, 640, 960].map(w => `/img/portrait-${w}.webp ${w}w`).join(', ')
-const SIZES = '(min-width: 1024px) 26rem, 5.5rem'
+const SIZES = '(min-width: 1024px) 26rem, 6.5rem'
 </script>
-
-<style scoped>
-.portrait {
-  position: relative;
-  width: 100%;
-  max-width: 26rem;
-  margin: 0;
-  overflow: hidden;
-  border-radius: var(--radius);
-  background: var(--bg-raised);
-}
-.portrait::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid var(--line);
-  border-radius: inherit;
-  pointer-events: none;
-}
-
-.portrait__img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-</style>

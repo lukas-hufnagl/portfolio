@@ -1,42 +1,37 @@
 <template>
-  <article v-if="project" class="view column">
-    <RouterLink to="/work" class="mono back">← All work</RouterLink>
+  <article v-if="project" class="frame page-pad">
+    <RouterLink
+      to="/work"
+      class="mono mb-[clamp(0.75rem,2.5svh,1.5rem)] inline-block text-ink-3 transition-colors duration-200 hover:text-ink"
+    >
+      ← All work
+    </RouterLink>
 
     <PageIntro :title="project.title">{{ project.summary }}</PageIntro>
 
-    <dl class="rows rows--stack">
+    <dl class="rows">
       <div class="row">
-        <dt class="mono row__label">Year</dt>
-        <dd class="row__body">{{ project.year }}</dd>
+        <dt class="mono pt-[0.3em] text-ink-3">Year</dt>
+        <dd class="max-w-(--measure)">{{ project.year }}</dd>
       </div>
       <div class="row">
-        <dt class="mono row__label">Stack</dt>
-        <dd class="row__body">{{ project.stack.join(', ') }}</dd>
-      </div>
-      <div v-if="project.highlights.length" class="row">
-        <dt class="mono row__label">Highlights</dt>
-        <dd class="row__body">
-          <ul class="highlights">
-            <li v-for="item in project.highlights" :key="item">{{ item }}</li>
-          </ul>
-        </dd>
+        <dt class="mono pt-[0.3em] text-ink-3">Stack</dt>
+        <dd class="max-w-(--measure)">{{ project.stack.join(', ') }}</dd>
       </div>
       <div v-if="project.links.length" class="row">
-        <dt class="mono row__label">Links</dt>
-        <dd class="row__body">
-          <p>
-            <a
-              v-for="link in project.links"
-              :key="link.href"
-              :href="link.href"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="out"
-            >
-              {{ link.label }} <span aria-hidden="true">↗</span>
-              <span class="sr-only">(opens in a new tab)</span>
-            </a>
-          </p>
+        <dt class="mono pt-[0.3em] text-ink-3">Links</dt>
+        <dd class="flex max-w-(--measure) flex-wrap gap-x-[1em]">
+          <a
+            v-for="link in project.links"
+            :key="link.href"
+            :href="link.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="transition-colors duration-200 hover:text-signal"
+          >
+            {{ link.label }} <span aria-hidden="true">↗</span>
+            <span class="sr-only">(opens in a new tab)</span>
+          </a>
         </dd>
       </div>
     </dl>
@@ -54,36 +49,3 @@ import PageIntro from '../components/PageIntro.vue'
 const route = useRoute()
 const project = computed(() => findProject(projects, route.params.slug))
 </script>
-
-<style scoped>
-.back {
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  color: var(--ink-3);
-  transition: color 0.2s;
-}
-.back:hover {
-  color: var(--ink);
-}
-
-.highlights {
-  display: grid;
-  gap: 0.375rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  color: var(--ink-2);
-}
-.highlights li::before {
-  content: '—';
-  margin-right: 0.6em;
-  color: var(--ink-3);
-}
-
-.out {
-  transition: color 0.2s;
-}
-.out:hover {
-  color: var(--signal);
-}
-</style>

@@ -1,5 +1,10 @@
 <template>
-  <button type="button" class="mono copy" :aria-label="label" @click="copy">
+  <button
+    type="button"
+    class="mono cursor-pointer text-ink-3 transition-colors duration-200 hover:text-signal"
+    :aria-label="label"
+    @click="copy"
+  >
     <span aria-hidden="true">{{ state === 'copied' ? 'Copied' : 'Copy' }}</span>
   </button>
   <span class="sr-only" role="status" aria-live="polite">{{
@@ -29,14 +34,3 @@ async function copy() {
 
 onBeforeUnmount(() => clearTimeout(timer))
 </script>
-
-<style scoped>
-.copy {
-  color: var(--ink-3);
-  cursor: pointer;
-  transition: color 0.2s;
-}
-.copy:hover {
-  color: var(--signal);
-}
-</style>

@@ -1,10 +1,26 @@
 <template>
-  <a href="#main" class="skip mono">Skip to content</a>
-  <div class="shell">
+  <a
+    href="#main"
+    class="mono fixed top-3 left-3 z-60 -translate-y-[200%] bg-ink px-3 py-2 text-paper focus-visible:translate-y-0"
+  >
+    Skip to content
+  </a>
+  <!-- Header, page, footer: the page grows, so a short page still puts the footer at the bottom. -->
+  <div class="flex min-h-svh flex-col">
     <SiteHeader />
-    <main id="main" class="shell__main" tabindex="-1">
+    <!--
+      Page change: a short cross-fade, nothing more. Every page must render a single root
+      element (no comment before it), or the out-in transition can't animate it.
+    -->
+    <main id="main" class="flex flex-1 flex-col focus:outline-none" tabindex="-1">
       <RouterView v-slot="{ Component, route }">
-        <Transition name="page" mode="out-in">
+        <Transition
+          mode="out-in"
+          enter-active-class="transition duration-[220ms] ease-soft"
+          enter-from-class="translate-y-1.5 opacity-0"
+          leave-active-class="transition duration-[220ms] ease-soft"
+          leave-to-class="opacity-0"
+        >
           <component :is="Component" :key="route.path" />
         </Transition>
       </RouterView>
@@ -17,49 +33,3 @@
 import SiteHeader from './components/SiteHeader.vue'
 import SiteFooter from './components/SiteFooter.vue'
 </script>
-
-<style scoped>
-/* Header, page, footer: the page grows, so a short page still puts the footer at the bottom. */
-.shell {
-  display: flex;
-  flex-direction: column;
-  min-height: 100svh;
-}
-.shell__main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.shell__main:focus {
-  outline: none;
-}
-
-.skip {
-  position: fixed;
-  top: 0.75rem;
-  left: 0.75rem;
-  z-index: 60;
-  padding: 0.5rem 0.75rem;
-  background: var(--ink);
-  color: var(--bg);
-  transform: translateY(-200%);
-}
-.skip:focus-visible {
-  transform: none;
-}
-
-/* Page change: a short cross-fade, nothing more. */
-.page-enter-active,
-.page-leave-active {
-  transition:
-    opacity 0.22s var(--ease),
-    transform 0.22s var(--ease);
-}
-.page-enter-from {
-  opacity: 0;
-  transform: translateY(6px);
-}
-.page-leave-to {
-  opacity: 0;
-}
-</style>

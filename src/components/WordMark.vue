@@ -1,87 +1,41 @@
+<!--
+  "LH." that unfolds into "Lukas Hufnagl." — the L and the H never move out of the word;
+  only the letters between and after them open up. Closed on the home page, where the name
+  is already the headline; open everywhere else. Narrow phones (< 360px) keep the short form,
+  so the navigation always fits.
+
+  Each fold is a grid track animating 0fr <-> 1fr: a smooth width change to the text's own
+  width. Opening runs left to right ("ukas" first), closing right to left and a little faster;
+  the letters slide with it and are clipped by the closing width, never faded.
+  Under prefers-reduced-motion all of this resolves instantly (main.css).
+-->
 <template>
-  <!--
-    "LH." that unfolds into "Lukas Hufnagl." — the L and the H never move out of the word;
-    only the letters between and after them open up. Closed on the home page, where the name
-    is already the headline; open everywhere else.
-  -->
-  <span class="mark" :class="{ 'is-open': open }" aria-hidden="true"
-    >L<span class="mark__fold" style="--i: 0"
-      ><span class="mark__clip"><span class="mark__text">ukas&nbsp;</span></span></span
-    >H<span class="mark__fold" style="--i: 1"
-      ><span class="mark__clip"><span class="mark__text">ufnagl</span></span></span
-    ><span class="mark__dot"
+  <span
+    class="inline-flex items-baseline text-[1.0625rem] leading-none font-bold tracking-[-0.045em] whitespace-nowrap"
+    aria-hidden="true"
+    >L<span :class="fold" style="--i: 0"
+      ><span class="min-w-0 overflow-hidden"><span :class="letters">ukas&nbsp;</span></span></span
+    >H<span :class="fold" style="--i: 1"
+      ><span class="min-w-0 overflow-hidden"><span :class="letters">ufnagl</span></span></span
+    ><span class="ml-[0.07em] size-[0.2em] bg-signal"
   /></span>
 </template>
 
 <script setup lang="ts">
-defineProps<{ open: boolean }>()
+import { computed } from 'vue'
+
+const props = defineProps<{ open: boolean }>()
+
+// The letters stay opaque: the closing width clips them, so there is never an empty gap.
+const fold = computed(() =>
+  props.open
+    ? 'inline-grid grid-cols-[1fr] transition-[grid-template-columns] duration-600 ease-soft delay-[calc(var(--i)*80ms)] max-[359px]:grid-cols-[0fr]'
+    : 'inline-grid grid-cols-[0fr] transition-[grid-template-columns] duration-400 ease-io delay-[calc((1-var(--i))*40ms)]'
+)
+
+const letters = computed(() =>
+  props.open
+    ? 'inline-block translate-x-0 transition-transform duration-600 ease-soft delay-[calc(var(--i)*80ms)]'
+    : 'inline-block -translate-x-[0.4em] transition-transform duration-400 ease-io delay-[calc((1-var(--i))*40ms)]'
+)
 </script>
-
-<style scoped>
-.mark {
-  display: inline-flex;
-  align-items: baseline;
-  font-size: 1.0625rem;
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-/*
- * Each fold is a grid track animating 0fr <-> 1fr: a smooth width change to the text's own
- * width. Opening runs left to right ("ukas" first), closing right to left and a little faster.
- * Under prefers-reduced-motion all of this resolves instantly (main.css).
- */
-.mark__fold {
-  display: inline-grid;
-  grid-template-columns: 0fr;
-  transition: grid-template-columns 0.4s var(--ease-io);
-  transition-delay: calc((1 - var(--i)) * 50ms);
-}
-.mark__clip {
-  min-width: 0;
-  overflow: hidden;
-}
-.mark__text {
-  display: inline-block;
-  opacity: 0;
-  transform: translateX(-0.4em);
-  transition:
-    opacity 0.2s var(--ease),
-    transform 0.4s var(--ease-io);
-  transition-delay: calc((1 - var(--i)) * 50ms);
-}
-
-.is-open .mark__fold {
-  grid-template-columns: 1fr;
-  transition-duration: 0.6s;
-  transition-timing-function: var(--ease);
-  transition-delay: calc(var(--i) * 80ms);
-}
-.is-open .mark__text {
-  opacity: 1;
-  transform: none;
-  transition-duration: 0.45s, 0.7s;
-  transition-timing-function: var(--ease);
-  transition-delay: calc(var(--i) * 80ms + 90ms);
-}
-
-/* The full stop: the site's signal-red square, as in the favicon. */
-.mark__dot {
-  width: 0.2em;
-  height: 0.2em;
-  margin-left: 0.07em;
-  background: var(--signal);
-}
-
-/* Narrow phones keep the short form, so the navigation always fits. */
-@media (max-width: 359px) {
-  .is-open .mark__fold {
-    grid-template-columns: 0fr;
-  }
-  .is-open .mark__text {
-    opacity: 0;
-  }
-}
-</style>
